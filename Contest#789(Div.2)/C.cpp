@@ -1,8 +1,25 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <map>
 using namespace std;
+int findIndex(vector<int>& array, int& x)
+{
+	int left = 0;
+	int right = array.size();
+	while (left < right)
+	{
+		int mid = (left + right) >> 1;
+		if (array[mid] <= x)
+		{
+			left = mid + 1;
+		}
+		else 
+		{
+			right = mid;
+		}
+	}
+	return left;
+}
 int main()
 {
 	int t;
@@ -16,68 +33,42 @@ int main()
 		{
 			cin >> nums[i];
 		}
-		int ans = 0;
-		vector<int> bigger;
-		vector<int> smaller;
+		vector<vector<int>> bigger(n, vector<int>());
+		vector<vector<int>> smaller(n, vector<int>());
 		for (int i = 0; i < n; ++i)
 		{
 			for (int j = i + 1; j < n; ++j)
 			{
 				if (nums[j] > nums[i])
 				{
-					bigger.push_back(i * 10000 + j);
+					bigger[i].push_back(j);
 				}
 				else if (nums[j] < nums[i])
 				{
-					smaller.push_back(i * 10000 + j);
+					smaller[i].push_back(j);
 				}
 			}
 		}
-		int biggerSize = bigger.size();
-		int smallerSize = smaller.size();
-		map<int, int> endIndex;
-		for (int i = 0; i < smallerSize; ++i)
+		int ans = 0;
+		for (int a = 0; a < n; ++a)
 		{
-			int x = smaller[i] / 10000;
-			endIndex[x] = i;
-		}
-		for (int i = 0; i < biggerSize; ++i)
-		{
-			int a = bigger[i] / 10000;
-			int c = bigger[i] % 10000;
-			int left = 0;
-			int right = smallerSize;
-			while(left < right)
+			for (int b = a + 1; b < n; ++b)
 			{
-				int mid = (left + right) >> 1;
-				if (smaller[mid] / 10000 <= a)
+				int cIndex = findIndex(bigger[a], b);
+				if (cIndex >= bigger[a].size())
 				{
-					left = mid + 1;
+					continue;
 				}
-				else
+				for (int i = cIndex; i < bigger[a].size(); ++i)
 				{
-					right = mid;
-				}
-			}
-			int begin = left;
-			while (begin < smallerSize && smaller[begin] / 10000 < c)
-			{
-				left = begin;
-				right = endIndex[smaller[begin] / 10000] + 1;
-				while (left < right)
-				{
-					int mid = (left + right) >> 1;
-					if (smaller[mid] % 10000 <= c)
+					int c = bigger[a][i];
+					int dIndex = findIndex(smaller[b], c);
+					if (dIndex >= smaller[b].size())
 					{
-						left = mid + 1;
+						continue;
 					}
-					else
-					{
-						right = mid;
-					}
+					ans += (smaller[b].size() - dIndex);
 				}
-				ans += endIndex[smaller[begin] / 10000] - left + 1;
-				begin = endIndex[smaller[begin] / 10000] + 1;
 			}
 		}
 		cout << ans << endl;
