@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <unordered_map>
+#include <map>
 using namespace std;
 int main()
 {
@@ -13,7 +13,7 @@ int main()
 		cin >> n;
 		cin >> k;
 		vector<int> nums(n);
-		unordered_map<int, int> counts;
+		map<int, int> counts;
 		for (int i = 0; i < n; ++i)
 		{
 			cin >> nums[i];
