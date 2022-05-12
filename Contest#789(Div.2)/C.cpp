@@ -2,23 +2,28 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-int findIndex(vector<int>& array, int& x)
+int lowbit(int x)
 {
-	int left = 0;
-	int right = array.size();
-	while (left < right)
+	return x & -x;
+}
+void add(vector<long long>& t, int x)
+{
+	int n = t.size() - 1;
+	while(x <= n)
 	{
-		int mid = (left + right) >> 1;
-		if (array[mid] <= x)
-		{
-			left = mid + 1;
-		}
-		else 
-		{
-			right = mid;
-		}
+		++t[x];
+		x += lowbit(x);
 	}
-	return left;
+}
+long long sum(vector<long long>& t, int x)
+{
+	long long ans = 0;
+	while(x >= 1)
+	{
+		ans += t[x];
+		x -= lowbit(x);
+	}
+	return ans;
 }
 int main()
 {
@@ -28,46 +33,36 @@ int main()
 	{
 		int n;
 		cin >> n;
-		vector<int> nums(n);
-		for (int i = 0; i < n; ++i)
+		vector<int> nums(n + 1);
+		vector<long long> pairs(n + 1);
+		vector<long long> t(n + 1, 0);
+		for (int i = 1; i <= n; ++i)
 		{
 			cin >> nums[i];
+			add(t, nums[i]);
+			pairs[i] = sum(t, nums[i] - 1);
 		}
-		vector<vector<int>> bigger(n, vector<int>());
-		vector<vector<int>> smaller(n, vector<int>());
-		for (int i = 0; i < n; ++i)
+		for (int c = 2; c <= n; ++c)
 		{
-			for (int j = i + 1; j < n; ++j)
+			pairs[c] += pairs[c - 1];
+		}
+		long long ans = 0;
+		for (int b = n - 2; b >= 1; --b)
+		{
+			int modify = 0;
+			for (int c = b + 1; c <= n; ++c)
 			{
-				if (nums[j] > nums[i])
+				if (nums[b] < nums[c])
 				{
-					bigger[i].push_back(j);
+					++modify;
 				}
-				else if (nums[j] < nums[i])
-				{
-					smaller[i].push_back(j);
-				}
+				pairs[c] -= modify;
 			}
-		}
-		int ans = 0;
-		for (int a = 0; a < n; ++a)
-		{
-			for (int b = a + 1; b < n; ++b)
+			for (int d = n; d >= b + 2; --d)
 			{
-				int cIndex = findIndex(bigger[a], b);
-				if (cIndex >= bigger[a].size())
+				if (nums[b] > nums[d])
 				{
-					continue;
-				}
-				for (int i = cIndex; i < bigger[a].size(); ++i)
-				{
-					int c = bigger[a][i];
-					int dIndex = findIndex(smaller[b], c);
-					if (dIndex >= smaller[b].size())
-					{
-						continue;
-					}
-					ans += (smaller[b].size() - dIndex);
+					ans += pairs[d - 1] - pairs[b];
 				}
 			}
 		}
