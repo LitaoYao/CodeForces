@@ -34,35 +34,30 @@ int main()
 		int n;
 		cin >> n;
 		vector<int> nums(n + 1);
-		vector<long long> pairs(n + 1);
+		vector<long long> pairs(n + 1, 0);
 		vector<long long> t(n + 1, 0);
 		for (int i = 1; i <= n; ++i)
 		{
 			cin >> nums[i];
 			add(t, nums[i]);
 			pairs[i] = sum(t, nums[i] - 1);
-		}
-		for (int c = 2; c <= n; ++c)
-		{
-			pairs[c] += pairs[c - 1];
+			pairs[i] += pairs[i - 1];
 		}
 		long long ans = 0;
 		for (int b = n - 2; b >= 1; --b)
 		{
 			int modify = 0;
-			for (int c = b + 1; c <= n; ++c)
+			for (int c = b + 1; c < n; ++c)
 			{
 				if (nums[b] < nums[c])
 				{
 					++modify;
 				}
 				pairs[c] -= modify;
-			}
-			for (int d = n; d >= b + 2; --d)
-			{
+				int d = c + 1;
 				if (nums[b] > nums[d])
 				{
-					ans += pairs[d - 1] - pairs[b];
+					ans += pairs[c] - pairs[b];
 				}
 			}
 		}
