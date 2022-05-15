@@ -2,22 +2,6 @@
 #include <vector>
 #include <string>
 using namespace std;
-int findIndex(vector<int>& nums, int x, int left, int right)
-{
-	while (left < right)
-	{
-		int mid = (left + right) >> 1;
-		if (x >= nums[mid])
-		{
-			left = mid + 1;
-		}
-		else
-		{
-			right = mid;
-		}
-	}
-	return left;
-}
 void solve()
 {
 	string str;
@@ -47,6 +31,16 @@ void solve()
 		}
 		else
 		{
+			/*
+				The important mathematical property:
+				leftZero - rightOne = index = zeroCount[index] + oneCount[index]
+				We should find an index in order to make the function below minimized.
+				minimize max(zeroCount[i] - zeroCount[index], rightOne + oneCount[index])
+				=> minimize max(leftZero - rightOne - zeroCount[index], oneCOunt[index])
+				=> leftZero - rightOne - zeroCount[index] = oneCount[index]
+				=> leftZero - rightOne = oneCount[index] + zeroCount[index] = index
+				=> leftZero - rightOne = index
+			*/
 			int index = leftZero - rightOne;
 			if (index <= i)
 			{
