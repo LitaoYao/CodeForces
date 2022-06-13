@@ -24,6 +24,18 @@ bool canTransmitTarget(string& s, string& t, int n, char target, char transmit)
 		return false;
 	}
 	bool valid = true;
+	vector<int> countTransmit(n, 0);
+	for (int i = 0; i < n; ++i)
+	{
+	    if (s[i] == transmit || s[i] == target)
+	    {
+	        countTransmit[i] += 1;
+	    }
+	    if (i > 0)
+	    {
+	        countTransmit[i] += countTransmit[i - 1];
+	    }
+	}
 	while (sPointer >= 0 && tPointer >= 0)
 	{
 		while (sPointer >= 0 && s[sPointer] != target)
@@ -39,16 +51,8 @@ bool canTransmitTarget(string& s, string& t, int n, char target, char transmit)
 			valid = false;
 			break;
 		}
-		bool canTransmit = true;
-		for (int i = sPointer + 1; i <= tPointer; ++i)
-		{
-			if (s[i] != transmit)
-			{
-				canTransmit = false;
-				break;
-			}
-		}
-		if (!canTransmit)
+		int count = countTransmit[tPointer] - countTransmit[sPointer];
+		if (count != tPointer - sPointer)
 		{
 			valid = false;
 			break;
