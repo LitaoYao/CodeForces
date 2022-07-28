@@ -18,7 +18,13 @@ void solve()
 		rains[x] -= 2;
 		rains[x + p] += 1;
 	}
+	// x1 is the maximum position that effected by right raining pos
+	// p1 is the height of rain at x1
+	// pi - (xi - x1) >= p1 - m
 	long long x1, p1 = LLONG_MIN;
+	// x2 is the maximum position that effected by left raining pos
+	// p2 is the height of rain at x
+	// pi - (x2 - xi) >= p2 - m
 	long long x2, p2 = LLONG_MIN;
 	long long nowRain = 0;
 	long long lastRain = 0;
