@@ -9,7 +9,7 @@ void solve()
 	cin >> n >> m;
 	long long x, p;
 	map<long long, long long> rains;
-	vector<pair<long long, long long> > allRains;  
+	vector<pair<long long, long long> > allRains;
 	for (int i = 0; i < n; ++i)
 	{
 		cin >> x >> p;
