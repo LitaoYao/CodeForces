@@ -41,6 +41,10 @@ void solve()
 		}
 		++round;
 	}
+	if (begins[a] == -1)
+	{
+		begins[a] = round;
+	}
 	ends[a] = round;
 	for (int i = 0; i < q; ++i)
 	{
