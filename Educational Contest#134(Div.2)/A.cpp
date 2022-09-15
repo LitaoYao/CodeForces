@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1721/problem/A
 #include <iostream>
 #include <map>
 using namespace std;

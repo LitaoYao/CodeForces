@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1695/problem/C
 #include <iostream>
 #include <vector>
 #include <bitset>

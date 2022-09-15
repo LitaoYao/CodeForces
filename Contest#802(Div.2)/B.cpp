@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1700/problem/B
 #include <iostream>
 #include <string>
 #include <vector>

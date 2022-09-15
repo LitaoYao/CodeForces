@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1717/problem/B
 #include <iostream>
 using namespace std;
 int n, k, r, c;

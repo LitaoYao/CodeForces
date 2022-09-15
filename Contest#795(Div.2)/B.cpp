@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1691/problem/B
 #include <iostream>
 #include <vector>
 #include <map>

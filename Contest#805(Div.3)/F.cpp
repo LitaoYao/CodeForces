@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿// https://codeforces.com/contest/1702/problem/F
+#include <iostream>
 #include <algorithm>
 #include <vector>
 #include <map>

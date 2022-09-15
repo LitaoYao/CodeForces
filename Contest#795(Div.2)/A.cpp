@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1691/problem/A
 #include <iostream>
 #include <algorithm>
 using namespace std;

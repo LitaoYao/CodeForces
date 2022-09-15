@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1690/problem/B
 #include <iostream>
 #include <vector>
 using namespace std;

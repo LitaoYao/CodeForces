@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/1678/problem/B2
 #include <iostream>
 #include <algorithm>
 #include <vector>
