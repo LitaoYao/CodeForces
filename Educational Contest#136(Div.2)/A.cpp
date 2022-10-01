@@ -1,4 +1,4 @@
-// https://codeforces.com/contests/1739/problem/A
+// https://codeforces.com/contest/1739/problem/A
 #include <iostream>
 using namespace std;
 void solve()
